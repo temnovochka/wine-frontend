@@ -95,13 +95,13 @@ class AdminView extends Component {
         } else {
             return <Empty/>
         }
-    }
+    };
 
     render_table = () => {
         const {loading, list} = this.state;
         return <Table loading={loading} columns={this.columns}
                       dataSource={list} rowKey={(record) => record.id}/>
-    }
+    };
 
     render() {
         return <div>

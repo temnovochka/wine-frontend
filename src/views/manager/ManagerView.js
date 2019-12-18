@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
 import {Empty, Layout, Menu} from 'antd';
 import {getData} from "../../http";
-import ClientProfile from "./ClientProfile";
-import ClientStockTable from "./ClientStockTable";
+import ManagerStockTable from "./ManagerStockTable";
+import ManagerClientsTable from "./ManagerClientsTable";
 
-class ClientView extends Component {
+class ManagerView extends Component {
 
     state = {
         selected_menu: null,
-        client: null,
+        manager: null,
     };
 
     getData = callback => {
-        getData(`api/client/${this.props.user.login}`)
+        getData(`api/manager/${this.props.user.login}`)
             .then(result => {
                 if (result.status === 200) {
                     callback(result.data)
@@ -23,7 +23,7 @@ class ClientView extends Component {
     componentDidMount() {
         this.getData(res => {
             this.setState({
-                client: res,
+                manager: res,
             });
         });
     }
@@ -34,7 +34,7 @@ class ClientView extends Component {
         });
         this.getData(res => {
             this.setState({
-                client: res,
+                manager: res,
             });
         });
     };
@@ -47,21 +47,27 @@ class ClientView extends Component {
             return this.render_order()
         } else if (selected_menu === "stock") {
             return this.render_stock()
+        } else if (selected_menu === "clients") {
+            return this.render_clients()
         } else {
             return <Empty/>
         }
     };
 
     render_profile = () => {
-        return <ClientProfile user={this.state.client}/>
+        return <ManagerStockTable user={this.state.manager}/>
     };
 
     render_order = () => {
-        return <ClientProfile user={this.state.client}/>
+        return <ManagerStockTable user={this.state.manager}/>
     };
 
     render_stock = () => {
-        return <ClientStockTable user={this.state.client}/>
+        return <ManagerStockTable user={this.state.manager}/>
+    };
+
+    render_clients = () => {
+        return <ManagerClientsTable user={this.state.manager}/>
     };
 
     render() {
@@ -78,6 +84,7 @@ class ClientView extends Component {
                         <Menu.Item key="profile">My profile</Menu.Item>
                         <Menu.Item key="order">My Orders</Menu.Item>
                         <Menu.Item key="stock">Stock</Menu.Item>
+                        <Menu.Item key="clients">Clients</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>
@@ -88,4 +95,4 @@ class ClientView extends Component {
     }
 }
 
-export default ClientView
+export default ManagerView
