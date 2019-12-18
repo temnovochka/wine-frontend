@@ -14,39 +14,40 @@ class ManagerStockTable extends Component {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
-            render: text => <a>{text}</a>,
         },
         {
-            title: 'Description',
-            dataIndex: 'features',
-            key: 'features',
-        },
-        {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
+            title: 'Number',
+            dataIndex: 'number',
+            key: 'number',
         },
         {
             title: 'Action',
             key: 'action',
-            render: (text, record) => (
+            render: (
                 <span>
-                <a>Added {record.name} into order</a>
-                    {/*<Divider type="vertical"/>*/}
-                    {/*<a>Delete</a>*/}
+                <a>Add into purchase</a>
               </span>
             ),
         },
     ];
 
     getData = callback => {
-        getData('api/product/')
+        getData('api/stock')
             .then(result => {
                 if (result.status === 200) {
                     callback(result.data)
                 }
             })
     };
+
+    componentDidMount() {
+        this.getData(res => {
+            this.setState({
+                loading: false,
+                list: res,
+            });
+        });
+    }
 
     render_table = () => {
         const {loading, list} = this.state;
@@ -55,15 +56,6 @@ class ManagerStockTable extends Component {
     };
 
     render() {
-        // this.setState({
-        //     loading: true
-        // });
-        this.getData(res => {
-            this.setState({
-                loading: false,
-                list: res,
-            });
-        });
         return this.render_table()
     };
 

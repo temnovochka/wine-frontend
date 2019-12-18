@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {Empty, Layout, Menu} from 'antd';
+import {Empty, Layout, Menu, Badge} from 'antd';
 import {getData} from "../../http";
 import ClientProfile from "./ClientProfile";
 import ClientStockTable from "./ClientStockTable";
+import ClientOrderList from "./ClientOrderList";
 
 class ClientView extends Component {
 
@@ -57,7 +58,7 @@ class ClientView extends Component {
     };
 
     render_order = () => {
-        return <ClientProfile user={this.state.client}/>
+        return <ClientOrderList user={this.state.client}/>
     };
 
     render_stock = () => {
@@ -83,6 +84,12 @@ class ClientView extends Component {
                 <Layout.Content>
                     {this.render_content()}
                 </Layout.Content>
+                {/*<a href="#">*/}
+                {/*    <Badge count={5}>*/}
+                {/*        <span className="head-example" />*/}
+                {/*    </Badge>*/}
+                {/*</a>,*/}
+                {/*Корзина,*/}
             </Layout>
         </div>
     }

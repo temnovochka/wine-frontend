@@ -3,6 +3,8 @@ import {Empty, Layout, Menu} from 'antd';
 import {getData} from "../../http";
 import ManagerStockTable from "./ManagerStockTable";
 import ManagerClientsTable from "./ManagerClientsTable";
+import ManagerOrdersTable from "./ManagerOrdersTable";
+import ManagerPurchasesTable from "./managerPurchasesTable";
 
 class ManagerView extends Component {
 
@@ -41,25 +43,21 @@ class ManagerView extends Component {
 
     render_content = () => {
         const {selected_menu} = this.state;
-        if (selected_menu === "profile") {
-            return this.render_profile()
-        } else if (selected_menu === "order") {
+        if (selected_menu === "order") {
             return this.render_order()
         } else if (selected_menu === "stock") {
             return this.render_stock()
         } else if (selected_menu === "clients") {
             return this.render_clients()
+        } else if (selected_menu === "purchase") {
+            return this.render_purchase()
         } else {
             return <Empty/>
         }
     };
 
-    render_profile = () => {
-        return <ManagerStockTable user={this.state.manager}/>
-    };
-
     render_order = () => {
-        return <ManagerStockTable user={this.state.manager}/>
+        return <ManagerOrdersTable user={this.state.manager}/>
     };
 
     render_stock = () => {
@@ -70,6 +68,10 @@ class ManagerView extends Component {
         return <ManagerClientsTable user={this.state.manager}/>
     };
 
+    render_purchase = () => {
+        return <ManagerPurchasesTable user={this.state.manager}/>
+    };
+
     render() {
         return <div>
             <Layout>
@@ -77,14 +79,14 @@ class ManagerView extends Component {
                     <Menu
                         onClick={this.menuClick}
                         style={{width: 256}}
-                        defaultSelectedKeys={['profile']}
-                        defaultOpenKeys={['profle']}
+                        defaultSelectedKeys={['order']}
+                        defaultOpenKeys={['order']}
                         mode="inline"
                     >
-                        <Menu.Item key="profile">My profile</Menu.Item>
-                        <Menu.Item key="order">My Orders</Menu.Item>
+                        <Menu.Item key="order">Orders</Menu.Item>
                         <Menu.Item key="stock">Stock</Menu.Item>
                         <Menu.Item key="clients">Clients</Menu.Item>
+                        <Menu.Item key="purchase">Purchases</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>

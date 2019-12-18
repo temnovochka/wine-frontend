@@ -47,6 +47,15 @@ class ManagerClientsTable extends Component {
             })
     };
 
+    componentDidMount() {
+        this.getData(res => {
+            this.setState({
+                loading: false,
+                list: res,
+            });
+        });
+    }
+
     render_table = () => {
         const {loading, list} = this.state;
         return <Table loading={loading} columns={this.columns}
@@ -54,15 +63,6 @@ class ManagerClientsTable extends Component {
     };
 
     render() {
-        // this.setState({
-        //     loading: true
-        // });
-        this.getData(res => {
-            this.setState({
-                loading: false,
-                list: res,
-            });
-        });
         return this.render_table()
     };
 

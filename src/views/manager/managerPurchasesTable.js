@@ -2,7 +2,7 @@ import {Table} from 'antd';
 import React, {Component} from 'react';
 import {getData} from "../../http";
 
-class ClientStockTable extends Component {
+class ManagerPurchasesTable extends Component {
 
     state = {
         loading: true,
@@ -11,34 +11,41 @@ class ClientStockTable extends Component {
 
     columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: text => <a>{text}</a>,
+            title: 'Number',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
-            title: 'Description',
-            dataIndex: 'features',
-            key: 'features',
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
         },
         {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
+            title: 'Supplier',
+            dataIndex: 'supplier',
+            key: 'supplier',
+        },
+        {
+            title: 'Is already in stock',
+            dataIndex: 'isAddedIntoStock',
+            key: 'isAddedIntoStock',
+            render: isAddedIntoStock => `${isAddedIntoStock.toString()}`,
         },
         {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
                 <span>
-                <a>Add into order</a>
+                <a>Add into stock</a>
+                    {/*<Divider type="vertical"/>*/}
+                    {/*<a>Delete</a>*/}
               </span>
             ),
         },
     ];
 
     getData = callback => {
-        getData('api/product/')
+        getData('api/purchase/')
             .then(result => {
                 if (result.status === 200) {
                     callback(result.data)
@@ -67,4 +74,4 @@ class ClientStockTable extends Component {
 
 }
 
-export default ClientStockTable
+export default ManagerPurchasesTable

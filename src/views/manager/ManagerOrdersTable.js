@@ -1,8 +1,8 @@
-import {Table} from 'antd';
+import {Divider, Table} from 'antd';
 import React, {Component} from 'react';
 import {getData} from "../../http";
 
-class ClientStockTable extends Component {
+class ManagerOrdersTable extends Component {
 
     state = {
         loading: true,
@@ -11,34 +11,37 @@ class ClientStockTable extends Component {
 
     columns = [
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name',
-            render: text => <a>{text}</a>,
+            title: 'Number',
+            dataIndex: 'id',
+            key: 'id',
         },
         {
-            title: 'Description',
-            dataIndex: 'features',
-            key: 'features',
+            title: 'Status',
+            dataIndex: 'status',
+            key: 'status',
         },
         {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
+            title: 'Payment status',
+            dataIndex: 'paymentStatus',
+            key: 'paymentStatus',
         },
         {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
                 <span>
-                <a>Add into order</a>
+                <a>View details</a>
+                <Divider type="vertical" />
+                <a>Change status</a>
+                <Divider type="vertical" />
+                <a>Check availability</a>
               </span>
             ),
         },
     ];
 
     getData = callback => {
-        getData('api/product/')
+        getData('api/order/')
             .then(result => {
                 if (result.status === 200) {
                     callback(result.data)
@@ -67,4 +70,4 @@ class ClientStockTable extends Component {
 
 }
 
-export default ClientStockTable
+export default ManagerOrdersTable
