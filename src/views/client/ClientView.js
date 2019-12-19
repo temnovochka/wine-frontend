@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Empty, Layout, Menu, Badge} from 'antd';
+import {Empty, Layout, Menu, Badge, Icon} from 'antd';
 import {getData} from "../../http";
 import ClientProfile from "./ClientProfile";
 import ClientStockTable from "./ClientStockTable";
@@ -66,6 +66,7 @@ class ClientView extends Component {
     };
 
     render() {
+        const {client} = this.state;
         return <div>
             <Layout>
                 <Layout.Sider>
@@ -77,19 +78,13 @@ class ClientView extends Component {
                         mode="inline"
                     >
                         <Menu.Item key="profile">My profile</Menu.Item>
-                        <Menu.Item key="order">My Orders</Menu.Item>
-                        <Menu.Item key="stock">Create a new order</Menu.Item>
+                        {client?.isConfirmed && <Menu.Item key="order">My Orders</Menu.Item>}
+                        {client?.isConfirmed && <Menu.Item key="stock">Create a new order</Menu.Item>}
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>
                     {this.render_content()}
                 </Layout.Content>
-                {/*<a href="#">*/}
-                {/*    <Badge count={5}>*/}
-                {/*        <span className="head-example" />*/}
-                {/*    </Badge>*/}
-                {/*</a>,*/}
-                {/*Корзина,*/}
             </Layout>
         </div>
     }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, DatePicker, Form, Input, message} from "antd";
+import {Button, DatePicker, Form, Icon, Input, message} from "antd";
 import {putData} from "../../http";
 import moment from "moment";
 
@@ -15,7 +15,8 @@ class ClientProfileForm extends Component {
                     name: values.name,
                     document: values.document,
                     birthday: values.birthday.format(),
-                    card: values.card
+                    card: values.card,
+                    isConfirmed: this.props.user.isConfirmed
                 })
                 .then((result) => {
                     if (result.status === 200) {
@@ -37,7 +38,6 @@ class ClientProfileForm extends Component {
             labelCol: {span: 6},
             wrapperCol: {span: 14},
         };
-        console.log(this.props.user);
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Login">
@@ -47,6 +47,10 @@ class ClientProfileForm extends Component {
                 <Form.Item label="Email">
                     <span
                         className="ant-form-text">{this.props.user.email}</span>
+                </Form.Item>
+                <Form.Item label="Confirmed">
+                    {this.props.user.isConfirmed && <Icon type="check-circle" theme="filled" style={{color: "green"}}/>}
+                    {!this.props.user.isConfirmed && <Icon type="close-circle" theme="filled" style={{color: "red"}}/>}
                 </Form.Item>
                 <Form.Item label="Name">
                     {getFieldDecorator('name', {

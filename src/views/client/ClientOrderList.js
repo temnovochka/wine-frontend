@@ -56,7 +56,6 @@ class ClientOrderList extends Component {
     ];
 
     payOrder = (order) => (e) => {
-        console.log('Pay order: ', order);
         order.paymentStatus = 'PAID';
         putData(`api/order/${order.id}`, order)
             .then(result => {
