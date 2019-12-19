@@ -1,4 +1,4 @@
-import {Table} from 'antd';
+import {Table, Tag} from 'antd';
 import React, {Component} from 'react';
 import {getData} from "../../http";
 
@@ -21,12 +21,14 @@ class ManagerStockTable extends Component {
             key: 'number',
         },
         {
-            title: 'Action',
-            key: 'action',
-            render: () => (
-                <span>
-                <a>Add into purchase</a>
-              </span>
+            title: 'Tags',
+            key: 'tags',
+            dataIndex: 'tags',
+            render: (text, record) => (
+                <div>
+                    {record.number < 5 && <Tag color="red">few</Tag>}
+                    {record.number > 5 && <Tag color="green">many</Tag>}
+                </div>
             ),
         },
     ];

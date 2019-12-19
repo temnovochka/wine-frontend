@@ -21,6 +21,16 @@ class ManagerPurchasesTable extends Component {
             key: 'status',
         },
         {
+            title: 'Administrator',
+            dataIndex: 'administratorLogin',
+            key: 'administratorLogin',
+        },
+        {
+            title: 'Manager',
+            dataIndex: 'managerLogin',
+            key: 'managerLogin',
+        },
+        {
             title: 'Supplier',
             dataIndex: 'supplier',
             key: 'supplier',

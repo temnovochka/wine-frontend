@@ -5,6 +5,7 @@ import ManagerStockTable from "./ManagerStockTable";
 import ManagerClientsTable from "./ManagerClientsTable";
 import ManagerOrdersTable from "./ManagerOrdersTable";
 import ManagerPurchasesTable from "./ManagerPurchasesTable";
+import ManagerNewPurchase from "./ManagerNewPurchase";
 
 class ManagerView extends Component {
 
@@ -51,6 +52,8 @@ class ManagerView extends Component {
             return this.render_clients()
         } else if (selected_menu === "purchase") {
             return this.render_purchase()
+        } else if (selected_menu === "newPurchase") {
+            return this.render_new_purchase()
         } else {
             return <Empty/>
         }
@@ -72,6 +75,10 @@ class ManagerView extends Component {
         return <ManagerPurchasesTable user={this.state.manager}/>
     };
 
+    render_new_purchase = () => {
+        return <ManagerNewPurchase user={this.state.manager}/>
+    };
+
     render() {
         return <div>
             <Layout>
@@ -87,6 +94,7 @@ class ManagerView extends Component {
                         <Menu.Item key="stock">Stock</Menu.Item>
                         <Menu.Item key="clients">Clients</Menu.Item>
                         <Menu.Item key="purchase">Purchases</Menu.Item>
+                        <Menu.Item key="newPurchase">Create a purchase</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>

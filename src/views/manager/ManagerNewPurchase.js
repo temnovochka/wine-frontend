@@ -1,8 +1,8 @@
-import {Button, Table, InputNumber, message} from 'antd';
-import React, {Component} from 'react';
+import {Button, InputNumber, message, Table} from "antd";
 import {getData, postData} from "../../http";
+import React, {Component} from "react";
 
-class ClientStockTable extends Component {
+class ManagerNewPurchase extends Component {
 
     state = {
         loading: true,
@@ -19,18 +19,8 @@ class ClientStockTable extends Component {
             render: text => <a>{text}</a>,
         },
         {
-            title: 'Description',
-            dataIndex: 'features',
-            key: 'features',
-        },
-        {
             title: 'Amount',
             render: (text, record) => <InputNumber onChange={this.editItemAmount(record)}/>,
-        },
-        {
-            title: 'Price',
-            dataIndex: 'price',
-            key: 'price',
         },
     ];
 
@@ -74,21 +64,21 @@ class ClientStockTable extends Component {
             const amount = item_amount[item.id] || 1;
             itemsForOrder[item.id] = amount
         });
-        postData('api/order/', {products: itemsForOrder})
+        postData('api/purchase/', {products: itemsForOrder})
             .then(result => {
                 if (result.status === 200) {
-                    message.info(`Order created (${result.data.id})`)
+                    message.info(`Purchase created (${result.data.id})`)
                 } else {
-                    message.warning(`Error while creating order`)
+                    message.warning(`Error while creating purchase`)
                 }
             })
-            .catch(ex => message.error("Exception while creating order: " + ex))
+            .catch(ex => message.error("Exception while creating purchase: " + ex))
     };
 
     render_table = () => {
         const {loading, list} = this.state;
         return <div>
-            <Button onClick={this.createOrder}>Create order</Button>
+            <Button onClick={this.createOrder}>Create purchase</Button>
             <Table loading={loading} rowSelection={this.rowSelection} columns={this.columns}
                    dataSource={list} rowKey={(record) => record.id}/>
         </div>
@@ -97,7 +87,6 @@ class ClientStockTable extends Component {
     render() {
         return this.render_table()
     };
-
 }
 
-export default ClientStockTable
+export default ManagerNewPurchase
