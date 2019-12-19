@@ -30,7 +30,7 @@ function PrivateApp(props) {
     return <div>
         <PageHeader
             ghost={false}
-            title="Private app"
+            title={`${props.user.role.toLowerCase()} app`}
             extra={[
                 <Button key={0} onClick={logOut}>Log out</Button>
             ]}

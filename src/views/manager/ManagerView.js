@@ -4,7 +4,7 @@ import {getData} from "../../http";
 import ManagerStockTable from "./ManagerStockTable";
 import ManagerClientsTable from "./ManagerClientsTable";
 import ManagerOrdersTable from "./ManagerOrdersTable";
-import ManagerPurchasesTable from "./managerPurchasesTable";
+import ManagerPurchasesTable from "./ManagerPurchasesTable";
 
 class ManagerView extends Component {
 

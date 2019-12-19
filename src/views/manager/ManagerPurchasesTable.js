@@ -34,7 +34,7 @@ class ManagerPurchasesTable extends Component {
         {
             title: 'Action',
             key: 'action',
-            render: (text, record) => (
+            render: () => (
                 <span>
                 <a>Add into stock</a>
                     {/*<Divider type="vertical"/>*/}

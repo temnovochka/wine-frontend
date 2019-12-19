@@ -23,7 +23,7 @@ class ManagerStockTable extends Component {
         {
             title: 'Action',
             key: 'action',
-            render: (
+            render: () => (
                 <span>
                 <a>Add into purchase</a>
               </span>
@@ -32,7 +32,7 @@ class ManagerStockTable extends Component {
     ];
 
     getData = callback => {
-        getData('api/stock')
+        getData('api/stock/')
             .then(result => {
                 if (result.status === 200) {
                     callback(result.data)

@@ -1,6 +1,6 @@
-import {Table, Divider} from 'antd';
+import {Table, Divider, Button, message} from 'antd';
 import React, {Component} from 'react';
-import {getData} from "../../http";
+import {getData, putData} from "../../http";
 
 class ClientOrderList extends Component {
 
@@ -19,7 +19,8 @@ class ClientOrderList extends Component {
             title: 'Products',
             dataIndex: 'products',
             key: 'products',
-            render: products => `${products.key} ${products.value}`,
+            render: products => Object.entries(products)
+                .map(([key, value], i) => <span key={i}> {`${key}: ${value}`} </span>),
         },
         {
             title: 'Status',
@@ -35,14 +36,36 @@ class ClientOrderList extends Component {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
-                <span>
-                <a>View details</a>
-                <Divider type="vertical" />
-                <a>Pay</a>
-              </span>
+                <div>
+                    {record.paymentStatus === 'NOT_PAID' && <Button onClick={this.payOrder(record)}>Pay</Button>}
+                </div>
+
             ),
         },
     ];
+
+    payOrder = (order) => (e) => {
+        console.log('Pay order: ', order)
+        order.paymentStatus = 'PAID'
+        putData(`api/order/${order.id}`, order)
+            .then(result => {
+                if (result.status === 200) {
+                   this.refreshTableData()
+                } else {
+                    message.warning(`Unable to pay order ${order.id}`)
+                }
+            })
+            .catch(ex => message.error(`Error when pay order ${ex}`))
+    };
+
+    refreshTableData = () => {
+        this.getData(res => {
+            this.setState({
+                loading: false,
+                list: res,
+            });
+        });
+    }
 
     getData = callback => {
         getData('api/order/')
@@ -54,12 +77,7 @@ class ClientOrderList extends Component {
     };
 
     componentDidMount() {
-        this.getData(res => {
-            this.setState({
-                loading: false,
-                list: res,
-            });
-        });
+      this.refreshTableData()
     }
 
     render_table = () => {
