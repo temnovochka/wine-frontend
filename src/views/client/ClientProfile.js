@@ -14,7 +14,8 @@ class ClientProfileForm extends Component {
                     role: this.props.user.role,
                     name: values.name,
                     document: values.document,
-                    birthday: values.birthday.format()
+                    birthday: values.birthday.format(),
+                    card: values.card
                 })
                 .then((result) => {
                     if (result.status === 200) {
@@ -36,6 +37,7 @@ class ClientProfileForm extends Component {
             labelCol: {span: 6},
             wrapperCol: {span: 14},
         };
+        console.log(this.props.user);
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                 <Form.Item label="Login">
@@ -50,6 +52,11 @@ class ClientProfileForm extends Component {
                     {getFieldDecorator('name', {
                         initialValue: this.props.user.name
                     })(<Input placeholder={"name"}/>)}
+                </Form.Item>
+                <Form.Item label="Card">
+                    {getFieldDecorator('card', {
+                        initialValue: this.props.user.card
+                    })(<Input placeholder={"card"}/>)}
                 </Form.Item>
                 <Form.Item label="Document">
                     {getFieldDecorator('document', {

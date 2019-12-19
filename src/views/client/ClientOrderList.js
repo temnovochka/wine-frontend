@@ -1,4 +1,4 @@
-import {Table, Divider, Button, message} from 'antd';
+import {Table, Divider, Button, message, Tag} from 'antd';
 import React, {Component} from 'react';
 import {getData, putData} from "../../http";
 
@@ -14,6 +14,8 @@ class ClientOrderList extends Component {
             title: 'Number',
             dataIndex: 'id',
             key: 'id',
+            defaultSortOrder: 'descend',
+            sorter: (a, b) => a.id - b.id,
         },
         {
             title: 'Products',
@@ -21,6 +23,11 @@ class ClientOrderList extends Component {
             key: 'products',
             render: products => Object.entries(products)
                 .map(([key, value], i) => <span key={i}> {`${key}: ${value}`} </span>),
+        },
+        {
+            title: 'Price',
+            dataIndex: 'price',
+            key: 'price',
         },
         {
             title: 'Status',
@@ -37,7 +44,11 @@ class ClientOrderList extends Component {
             key: 'action',
             render: (text, record) => (
                 <div>
-                    {record.paymentStatus === 'NOT_PAID' && <Button onClick={this.payOrder(record)}>Pay</Button>}
+                    {record.paymentStatus === 'NOT_PAID'
+                    && record.status !== 'NOT_DONE'
+                    && record.status !== 'CLOSED'
+                    && (record.clientCard !== '' && <Button onClick={this.payOrder(record)}>Pay</Button> ||
+                        <Tag color="volcano">Add card for paying</Tag>)}
                 </div>
 
             ),
@@ -45,12 +56,12 @@ class ClientOrderList extends Component {
     ];
 
     payOrder = (order) => (e) => {
-        console.log('Pay order: ', order)
-        order.paymentStatus = 'PAID'
+        console.log('Pay order: ', order);
+        order.paymentStatus = 'PAID';
         putData(`api/order/${order.id}`, order)
             .then(result => {
                 if (result.status === 200) {
-                   this.refreshTableData()
+                    this.refreshTableData()
                 } else {
                     message.warning(`Unable to pay order ${order.id}`)
                 }
@@ -65,7 +76,7 @@ class ClientOrderList extends Component {
                 list: res,
             });
         });
-    }
+    };
 
     getData = callback => {
         getData('api/order/')
@@ -77,7 +88,7 @@ class ClientOrderList extends Component {
     };
 
     componentDidMount() {
-      this.refreshTableData()
+        this.refreshTableData()
     }
 
     render_table = () => {

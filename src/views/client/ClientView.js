@@ -78,7 +78,7 @@ class ClientView extends Component {
                     >
                         <Menu.Item key="profile">My profile</Menu.Item>
                         <Menu.Item key="order">My Orders</Menu.Item>
-                        <Menu.Item key="stock">Stock</Menu.Item>
+                        <Menu.Item key="stock">Create a new order</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>
