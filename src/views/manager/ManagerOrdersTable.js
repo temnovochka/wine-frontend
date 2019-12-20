@@ -1,6 +1,6 @@
-import {Divider, Table} from 'antd';
+import {Button, Divider, message, Table} from 'antd';
 import React, {Component} from 'react';
-import {getData} from "../../http";
+import {getData, putData} from "../../http";
 
 class ManagerOrdersTable extends Component {
 
@@ -16,9 +16,26 @@ class ManagerOrdersTable extends Component {
             key: 'id',
         },
         {
+            title: 'Client',
+            dataIndex: 'clientLogin',
+            key: 'clientLogin',
+        },
+        {
+            title: 'Manager',
+            dataIndex: 'managerLogin',
+            key: 'managerLogin',
+        },
+        {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
+        },
+        {
+            title: 'Products',
+            dataIndex: 'products',
+            key: 'products',
+            render: products => Object.entries(products)
+                .map(([key, value], i) => <span key={i}> {`${key}: ${value}`} </span>),
         },
         {
             title: 'Payment status',
@@ -29,16 +46,58 @@ class ManagerOrdersTable extends Component {
             title: 'Action',
             key: 'action',
             render: (text, record) => (
-                <span>
-                <a>View details</a>
-                <Divider type="vertical" />
-                <a>Change status</a>
-                <Divider type="vertical" />
-                <a>Check availability</a>
-              </span>
+                <div>
+                    {!(record.status === 'CLOSED' || (record.status === 'DONE' && record.paymentStatus === 'NOT_PAID')) &&
+                    <Button onClick={this.closeOrder(record)}>Close</Button>}
+                    <Divider type="vertical"/>
+                    {record.status === 'NEW' &&
+                    <Button type='primary' onClick={this.takeOrder(record)}>Take order</Button>}
+                    <Divider type="vertical"/>
+                    {(record.status === 'IN_PROGRESS' || record.status === 'NOT_DONE') &&
+                    <Button onClick={this.checkOrder(record)}>Get from stock</Button>}
+                </div>
             ),
         },
     ];
+
+    checkOrder = (order) => (e) => {
+        putData(`api/order/check/${order.id}`, order)
+            .then(result => {
+                if (result.status === 200) {
+                    this.refreshTableData()
+                } else {
+                    message.warning(`Unable to check in stock order ${order.id}`)
+                }
+            })
+            .catch(ex => message.error(`Error when check in stock order ${ex}`))
+    };
+
+    takeOrder = (order) => (e) => {
+        order.status = 'IN_PROGRESS';
+        order.managerId = this.props.user.id;
+        putData(`api/order/${order.id}`, order)
+            .then(result => {
+                if (result.status === 200) {
+                    this.refreshTableData()
+                } else {
+                    message.warning(`Unable to take order ${order.id}`)
+                }
+            })
+            .catch(ex => message.error(`Error when take order ${ex}`))
+    };
+
+    closeOrder = (order) => (e) => {
+        order.status = 'CLOSED';
+        putData(`api/order/${order.id}`, order)
+            .then(result => {
+                if (result.status === 200) {
+                    this.refreshTableData()
+                } else {
+                    message.warning(`Unable to close order ${order.id}`)
+                }
+            })
+            .catch(ex => message.error(`Error when close order ${ex}`))
+    };
 
     getData = callback => {
         getData('api/order/')
@@ -49,13 +108,17 @@ class ManagerOrdersTable extends Component {
             })
     };
 
-    componentDidMount() {
+    refreshTableData = () => {
         this.getData(res => {
             this.setState({
                 loading: false,
                 list: res,
             });
         });
+    };
+
+    componentDidMount() {
+        this.refreshTableData()
     }
 
     render_table = () => {

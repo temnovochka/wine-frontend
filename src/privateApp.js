@@ -3,9 +3,10 @@ import {useAuth} from "./context/auth";
 import {Button, PageHeader} from "antd";
 import AdminView from "./views/admin/Admin";
 import UserView from "./views/UserView";
-import {ROLE_CLIENT, ROLE_MANAGER, ROLE_SYSTEM_ADMIN} from "./constants";
+import {ROLE_ADMINISTRATOR, ROLE_CLIENT, ROLE_MANAGER, ROLE_SYSTEM_ADMIN} from "./constants";
 import ClientView from "./views/client/ClientView";
 import ManagerView from "./views/manager/ManagerView";
+import AdministratorView from "./views/administrator/AdministratorView";
 
 function PrivateApp(props) {
     const {setAuthTokens} = useAuth();
@@ -22,6 +23,8 @@ function PrivateApp(props) {
             return <ClientView {...props}/>
         } else if (role === ROLE_MANAGER) {
             return <ManagerView {...props}/>
+        } else if (role === ROLE_ADMINISTRATOR) {
+            return <AdministratorView {...props}/>
         } else {
             return <UserView {...props}/>
         }

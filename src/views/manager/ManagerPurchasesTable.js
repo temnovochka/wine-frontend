@@ -1,6 +1,6 @@
-import {Table} from 'antd';
+import {Button, message, Table} from 'antd';
 import React, {Component} from 'react';
-import {getData} from "../../http";
+import {getData, putData} from "../../http";
 
 class ManagerPurchasesTable extends Component {
 
@@ -36,6 +36,13 @@ class ManagerPurchasesTable extends Component {
             key: 'supplier',
         },
         {
+            title: 'Products',
+            dataIndex: 'products',
+            key: 'products',
+            render: products => Object.entries(products)
+                .map(([key, value], i) => <span key={i}> {`${key}: ${value}`} </span>),
+        },
+        {
             title: 'Is already in stock',
             dataIndex: 'isAddedIntoStock',
             key: 'isAddedIntoStock',
@@ -44,15 +51,28 @@ class ManagerPurchasesTable extends Component {
         {
             title: 'Action',
             key: 'action',
-            render: () => (
-                <span>
-                <a>Add into stock</a>
-                    {/*<Divider type="vertical"/>*/}
-                    {/*<a>Delete</a>*/}
-              </span>
+            render: (text, record) => (
+                <div>
+                    {record.status === 'DONE' && !record.isAddedIntoStock &&
+                    <Button onClick={this.addIntoStock(record)}>Add into stock</Button>}
+                </div>
             ),
         },
     ];
+
+    addIntoStock = (purchase) => (e) => {
+        purchase.isAddedIntoStock = true;
+        purchase.status = 'CLOSED';
+        putData(`api/purchase/${purchase.id}`, purchase)
+            .then(result => {
+                if (result.status === 200) {
+                    this.refreshTableData()
+                } else {
+                    message.warning(`Unable to added into stock purchase ${purchase.id}`)
+                }
+            })
+            .catch(ex => message.error(`Error when added into stock purchase ${ex}`))
+    };
 
     getData = callback => {
         getData('api/purchase/')
@@ -63,13 +83,17 @@ class ManagerPurchasesTable extends Component {
             })
     };
 
-    componentDidMount() {
+    refreshTableData = () => {
         this.getData(res => {
             this.setState({
                 loading: false,
                 list: res,
             });
         });
+    };
+
+    componentDidMount() {
+        this.refreshTableData()
     }
 
     render_table = () => {
