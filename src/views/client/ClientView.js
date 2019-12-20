@@ -72,14 +72,14 @@ class ClientView extends Component {
                 <Layout.Sider>
                     <Menu
                         onClick={this.menuClick}
-                        style={{width: 256}}
+                        style={{width: 200}}
                         defaultSelectedKeys={['profile']}
                         defaultOpenKeys={['profle']}
                         mode="inline"
                     >
-                        <Menu.Item key="profile">My profile</Menu.Item>
-                        {client?.isConfirmed && <Menu.Item key="order">My Orders</Menu.Item>}
-                        {client?.isConfirmed && <Menu.Item key="stock">Create a new order</Menu.Item>}
+                        <Menu.Item key="profile" className="menu">My profile</Menu.Item>
+                        {client?.isConfirmed && <Menu.Item key="order" className="menu">My Orders</Menu.Item>}
+                        {client?.isConfirmed && <Menu.Item key="stock" className="menu">Create a new order</Menu.Item>}
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>

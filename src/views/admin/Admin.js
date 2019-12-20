@@ -109,12 +109,12 @@ class AdminView extends Component {
                 <Layout.Sider>
                     <Menu
                         onClick={this.menuClick}
-                        style={{width: 256}}
+                        style={{width: 200}}
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['1']}
                         mode="inline"
                     >
-                        <Menu.Item key="1">Edit users</Menu.Item>
+                        <Menu.Item key="1" className='menu'>Edit users</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>

@@ -85,16 +85,16 @@ class ManagerView extends Component {
                 <Layout.Sider>
                     <Menu
                         onClick={this.menuClick}
-                        style={{width: 256}}
+                        style={{width: 200}}
                         defaultSelectedKeys={['order']}
                         defaultOpenKeys={['order']}
                         mode="inline"
                     >
-                        <Menu.Item key="order">Orders</Menu.Item>
-                        <Menu.Item key="stock">Stock</Menu.Item>
-                        <Menu.Item key="clients">Clients</Menu.Item>
-                        <Menu.Item key="purchase">Purchases</Menu.Item>
-                        <Menu.Item key="newPurchase">Create a purchase</Menu.Item>
+                        <Menu.Item key="order" className='menu'>Orders</Menu.Item>
+                        <Menu.Item key="stock" className='menu'>Stock</Menu.Item>
+                        <Menu.Item key="clients" className='menu'>Clients</Menu.Item>
+                        <Menu.Item key="purchase" className='menu'>Purchases</Menu.Item>
+                        <Menu.Item key="newPurchase" className='menu'>Create a purchase</Menu.Item>
                     </Menu>
                 </Layout.Sider>
                 <Layout.Content>

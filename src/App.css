@@ -1,79 +1,98 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
-  pointer-events: none;
+    height: 40vmin;
+    pointer-events: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
 }
 
 .App-link {
-  color: #61dafb;
+    color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
+
 .login-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 100vh;
-  max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    max-width: 300px;
 }
+
 .login-form-button {
-  width: 100%;
+    width: 100%;
 }
 
 .register-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: normal;
-  text-align: center;
-  min-height: 100vh;
-  max-width: 500px;
-}
-.register-form-button {
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    text-align: center;
+    min-height: 100vh;
+    max-width: 500px;
 }
 
+.register-form-button {
+    width: 100%;
+}
 
 .editable-cell {
-  position: relative;
+    position: relative;
 }
 
 .editable-cell-value-wrap {
-  padding: 5px 12px;
-  cursor: pointer;
+    padding: 5px 12px;
+    cursor: pointer;
 }
 
 .editable-row:hover .editable-cell-value-wrap {
-  border: 1px solid #d9d9d9;
-  border-radius: 4px;
-  padding: 4px 11px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    padding: 4px 11px;
+}
+
+.menu {
+    width: 80%;
+    max-width: 200px;
+    border: 1px solid #d9d9d9;
+    padding: 4px 11px;
+}
+
+.create-order-button {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: normal;
+    text-align: center;
+    min-height: 3vh;
+    max-width: 500px;
 }

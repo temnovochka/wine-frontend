@@ -78,7 +78,7 @@ class ClientStockTable extends Component {
                 if (result.status === 200) {
                     message.info(`Order created (${result.data.id})`)
                 } else {
-                    message.warning(`Error while creating order`)
+                    message.warning(`Unable to create order`)
                 }
             })
             .catch(ex => message.error("Exception while creating order: " + ex))
@@ -87,7 +87,7 @@ class ClientStockTable extends Component {
     render_table = () => {
         const {loading, list} = this.state;
         return <div>
-            <Button onClick={this.createOrder}>Create order</Button>
+            <Button onClick={this.createOrder} className='create-order-button'>Create order</Button>
             <Table loading={loading} rowSelection={this.rowSelection} columns={this.columns}
                    dataSource={list} rowKey={(record) => record.id}/>
         </div>
