@@ -1,4 +1,4 @@
-import {Table, Divider, Button, message, Tag} from 'antd';
+import {Table, Button, message, Tag} from 'antd';
 import React, {Component} from 'react';
 import {getData, putData} from "../../http";
 
@@ -47,8 +47,10 @@ class ClientOrderList extends Component {
                     {record.paymentStatus === 'NOT_PAID'
                     && record.status !== 'NOT_DONE'
                     && record.status !== 'CLOSED'
-                    && (record.clientCard !== '' && <Button onClick={this.payOrder(record)}>Pay</Button> ||
-                        <Tag color="volcano">Add card for paying</Tag>)}
+                    && (
+                        (record.clientCard !== '' && <Button onClick={this.payOrder(record)}>Pay</Button>) ||
+                        <Tag color="volcano">Add card for paying</Tag>
+                    )}
                 </div>
 
             ),

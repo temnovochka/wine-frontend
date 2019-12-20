@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Empty, Layout, Menu, Badge, Icon} from 'antd';
+import {Empty, Layout, Menu} from 'antd';
 import {getData} from "../../http";
 import ClientProfile from "./ClientProfile";
 import ClientStockTable from "./ClientStockTable";

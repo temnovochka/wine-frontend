@@ -1,11 +1,31 @@
-export const ROLE_SYSTEM_ADMIN = 'SYSTEM_ADMIN'
-export const ROLE_CLIENT = 'CLIENT'
-export const ROLE_MANAGER = 'MANAGER'
-export const ROLE_ADMINISTRATOR = 'ADMINISTRATOR'
+export const ROLE_SYSTEM_ADMIN = 'SYSTEM_ADMIN';
+export const ROLE_CLIENT = 'CLIENT';
+export const ROLE_MANAGER = 'MANAGER';
+export const ROLE_ADMINISTRATOR = 'ADMINISTRATOR';
 
 export const USER_ROLES = [
     ROLE_SYSTEM_ADMIN,
     ROLE_CLIENT,
     ROLE_MANAGER,
     ROLE_ADMINISTRATOR
-]
+];
+
+export const STATUS_NEW = 'NEW';
+export const STATUS_IN_PROGRESS = 'IN_PROGRESS';
+export const STATUS_DONE = 'DONE';
+export const STATUS_NOT_DONE = 'NOT_DONE';
+export const STATUS_CLOSED = 'CLOSED';
+
+export const ORDER_STATUSES = [
+    STATUS_NEW,
+    STATUS_IN_PROGRESS,
+    STATUS_DONE,
+    STATUS_NOT_DONE,
+    STATUS_CLOSED
+];
+
+export const ADMIN_ORDER_STATUSES = [
+    STATUS_IN_PROGRESS,
+    STATUS_DONE,
+    STATUS_NOT_DONE
+];
