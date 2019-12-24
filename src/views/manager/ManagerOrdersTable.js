@@ -50,10 +50,10 @@ class ManagerOrdersTable extends Component {
                     {!(record.status === 'CLOSED' || (record.status === 'DONE' && record.paymentStatus === 'NOT_PAID')) &&
                     <Button onClick={this.closeOrder(record)}>Close</Button>}
                     <Divider type="vertical"/>
-                    {record.status === 'NEW' &&
+                    {record.status === 'NEW' && record.clientDeleted === false &&
                     <Button type='primary' onClick={this.takeOrder(record)}>Take order</Button>}
                     <Divider type="vertical"/>
-                    {(record.status === 'IN_PROGRESS' || record.status === 'NOT_DONE') &&
+                    {(record.status === 'IN_PROGRESS' || record.status === 'NOT_DONE') && record.clientDeleted === false &&
                     <Button onClick={this.checkOrder(record)}>Get from stock</Button>}
                 </div>
             ),
